@@ -1,1 +1,1 @@
-# Local-Kora
+# Infinity-Kora
