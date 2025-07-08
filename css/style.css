@@ -1,0 +1,299 @@
+/* ====== GLOBAL SETTINGS ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: white;
+}
+
+/* ====== NAVBAR ====== */
+#navbar {
+  position: fixed;
+  width: 100%;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+  background-color: transparent;
+}
+
+#navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.642);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  width: 100px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+  color: #C6FF00;
+  text-decoration: underline;
+}
+
+/* ====== HERO SECTION ====== */
+.hero-section {
+  height: 100vh;
+  background: url('../images/background.jpg') center center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 10%;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* 40% opacity */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 40px;
+  color: #C6FF00;
+  margin-bottom: 10px;
+}
+
+.hero-content h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.hero-content button {
+  background-color: #C6FF00;
+  color: black;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-content button:hover {
+  transform: scale(1.05);
+}
+
+/* ====== MODALS (Login & Sign Up) ====== */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: rgba(100, 100, 100, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+}
+
+.modal-logo {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  margin-top: 10px;
+  background-color: #C6FF00;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.switch-modal span {
+  color: #C6FF00;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ====== VISION SECTION ====== */
+.vision-section {
+  background-color: #1a1a1a;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.vision-section .vision-intro {
+  font-size: 16px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.vision-section .vision-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.vision-section .vision-card {
+  background-color: #292929;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+}
+
+.vision-section .vision-card:hover {
+  transform: scale(1.03);
+}
+
+.vision-section .vision-card h3 {
+  color: #C6FF00;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.vision-section .vision-card p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ====== EVENTS SECTION ====== */
+.events-section {
+  padding: 80px 20px;
+  background-color: #121212;
+  text-align: center;
+}
+
+.events-section h2 {
+  color: #C6FF00;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+/* ====== FOOTER ====== */
+footer {
+  background-color: #222;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+footer h3 {
+  color: #C6FF00;
+  margin-bottom: 10px;
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+.social-icons img {
+  width: 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .hero-content h2 {
+    font-size: 20px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .vision-section .vision-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vision-section .vision-card {
+    width: 90%;
+  }
+}
