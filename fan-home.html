@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Infinity Kora - Fan Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/fan.css">
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="navbar">
+<div class="logo">
+  <img src="images/logo.png" alt="Infinity Kora Logo" class="site-logo">
+</div>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link active">Home</a></li>
+      <li><a href="videos.html" class="nav-link">Videos</a></li>
+      <li><a href="#next-match" class="nav-link" id="vote-scroll">Vote</a></li>
+    </ul>
+    <div class="profile-dropdown">
+      <img src="images/user-placeholder.png" alt="User" class="profile-icon" id="user-avatar">
+      <div class="dropdown-menu hidden">
+        <a href="edit-profile.html" class="dropdown-item">Edit My Profile</a>
+        <a href="index.html" class="dropdown-item logout">Log Out</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ✅ Welcome / Stats -->
+  <section class="welcome-section">
+    <h2>Welcome, <span id="username">Fan</span></h2>
+    <div class="stats">
+      <div class="stat">
+        <p>Videos Watched</p>
+        <h3 id="videos-watched">0</h3>
+      </div>
+      <div class="stat">
+        <p>Correct Votes</p>
+        <h3 id="correct-votes">0</h3>
+      </div>
+      <div class="stat">
+        <p>Total Points</p>
+        <h3 id="total-points">0</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Latest Videos -->
+  <section class="latest-videos">
+    <h2 style="color: #c6ff00; text-align: center;">Latest Videos</h2>
+    <div class="video-grid">
+      <!-- Placeholder videos for now -->
+      <div class="video-card">
+        <img src="images/video1.jpg" alt="Video 1">
+        <div class="info">
+          <h4>Exciting Match Highlights</h4>
+          <p>Duration: 04:23</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <img src="images/video2.jpg" alt="Video 2">
+        <div class="info">
+          <h4>Goal Compilation</h4>
+          <p>Duration: 03:51</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <img src="images/video3.jpg" alt="Video 3">
+        <div class="info">
+          <h4>Penalty Shootout</h4>
+          <p>Duration: 02:15</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Next Match -->
+  <section id="next-match" class="next-match">
+    <h2 style="color: #c6ff00; text-align: center;">Next Match</h2>
+    <div class="match-card" id="match-info">
+      <!-- Filled by JS -->
+    </div>
+  </section>
+
+  <!-- ✅ Voting Popup -->
+  <div class="popup hidden" id="vote-popup">
+    <div class="popup-content">
+      <span class="close-popup">&times;</span>
+      <h3 style="color: white;">Choose the Winner</h3>
+      <div class="vote-options" id="vote-options">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Firebase & JS -->
+  <script type="module" src="js/fan.js"></script>
+
+</body>
+</html>

@@ -1,14 +1,14 @@
 // ====== FIREBASE IMPORTS ======
 import { auth, db } from "../firebase/firebase-config.js";
 import {
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 import {
-  ref,
-  set,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  setDoc,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // ====== NAVBAR SCROLL BG TOGGLE ======
 window.addEventListener("scroll", () => {
@@ -25,10 +25,8 @@ const navLinks = document.querySelectorAll(".nav-link");
 navLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
-
     navLinks.forEach((link) => link.classList.remove("active"));
     link.classList.add("active");
-
     const target = document.getElementById(link.getAttribute("href").substring(1));
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
@@ -55,13 +53,12 @@ window.closeModal = function (modalId) {
 window.openModal = function (modalId) {
   if (loginModal) loginModal.classList.add("hidden");
   if (signupModal) signupModal.classList.add("hidden");
-
   const modal = document.getElementById(modalId);
   if (modal) modal.classList.remove("hidden");
 };
 
 // ====== LOGIN FUNCTION ======
-window.loginUser = function () {
+window.loginUser = async function () {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
   const message = document.getElementById("loginMessage");
@@ -75,38 +72,43 @@ window.loginUser = function () {
   message.style.color = "#C6FF00";
   message.innerText = "Checking credentials...";
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const uid = userCredential.user.uid;
-      fetch(`https://infinity-koraa-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`)
-        .then((res) => res.json())
-        .then((data) => {
-          const role = data.role;
-          message.style.color = "green";
-          message.innerText = "✅ Login successful! Redirecting...";
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid;
 
-          setTimeout(() => {
-            if (role === "player") {
-              window.location.href = "player-home.html";
-            } else if (role === "fan") {
-              window.location.href = "fan-home.html";
-            } else if (role === "admin") {
-              window.location.href = "admin-dashboard.html";
-            } else {
-              message.style.color = "red";
-              message.innerText = "Unknown user role.";
-            }
-          }, 1000);
-        });
-    })
-    .catch((error) => {
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const role = docSnap.data().role;
+
+      message.style.color = "green";
+      message.innerText = "✅ Login successful! Redirecting...";
+
+      setTimeout(() => {
+        if (role === "player") {
+          window.location.href = "player-home.html";
+        } else if (role === "fan") {
+          window.location.href = "fan-home.html";
+        } else if (role === "admin") {
+          window.location.href = "admin-dashboard.html";
+        } else {
+          message.style.color = "red";
+          message.innerText = "Unknown user role.";
+        }
+      }, 1000);
+    } else {
       message.style.color = "red";
-      message.innerText = "Incorrect email or password.";
-    });
+      message.innerText = "User data not found.";
+    }
+  } catch (error) {
+    message.style.color = "red";
+    message.innerText = "Incorrect email or password.";
+  }
 };
 
-// ====== SIGNUP FUNCTION ======
-window.signupUser = function () {
+// ====== SIGN UP FUNCTION ======
+window.signupUser = async function () {
   const name = document.getElementById("signupName").value.trim();
   const age = document.getElementById("signupAge").value.trim();
   const city = document.getElementById("signupCity").value;
@@ -142,30 +144,33 @@ window.signupUser = function () {
   }
 
   message.style.color = "#C6FF00";
-  message.innerText = "Creating account...";
+  message.innerText = "Creating account... ⏳";
 
-  createUserWithEmailAndPassword(auth, email, pass)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      return set(ref(db, "users/" + user.uid), {
-        name,
-        age,
-        city,
-        email,
-        phone,
-        role,
-      });
-    })
-    .then(() => {
-      message.style.color = "green";
-      message.innerText = "✅ Account created! Redirecting...";
-      setTimeout(() => {
-        closeModal("signupModal");
-        openModal("loginModal");
-      }, 1500);
-    })
-    .catch((error) => {
-      message.style.color = "red";
-      message.innerText = "Signup failed. Try again.";
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+    const uid = userCredential.user.uid;
+
+    await setDoc(doc(db, "users", uid), {
+      fullName: name,
+      age: age,
+      city: city,
+      email: email,
+      phone: phone,
+      role: role,
+      points: 0,
+      teammates: []
     });
+
+    message.style.color = "green";
+    message.innerText = "✅ Account created successfully!";
+    
+    setTimeout(() => {
+      closeModal('signupModal');
+      openModal('loginModal');
+    }, 1500);
+  } catch (error) {
+    console.error("Signup error:", error);
+    message.style.color = "red";
+    message.innerText = "❌ " + error.message;
+  }
 };
