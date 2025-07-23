@@ -1,5 +1,4 @@
-
-/* ===== Global Reset ===== */
+/* ===== GLOBAL RESET ===== */
 * {
   margin: 0;
   padding: 0;
@@ -8,18 +7,18 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0a0a0a;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0d1117;
   color: white;
   padding-top: 70px;
 }
 
-/* ===== Navbar ===== */
+/* ===== NAVBAR ===== */
 #navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #0a0a0a;
+  background-color: #161b22;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,37 +27,85 @@ body {
   border-bottom: 1px solid #222;
 }
 
-#navbar .logo {
+.logo {
   height: 50px;
 }
 
-#navbar nav ul {
+.nav-links {
   list-style: none;
   display: flex;
   gap: 30px;
 }
 
-#navbar nav ul li a {
+.nav-link {
   color: white;
   text-decoration: none;
   font-weight: 500;
   transition: 0.3s;
 }
 
-#navbar nav ul li a:hover,
-#navbar nav ul li a.active {
+.nav-link:hover,
+.nav-link.active {
   color: #C6FF00;
   text-decoration: underline;
 }
 
-/* ===== Main Container ===== */
+/* ✅ Profile Icon + Dropdown */
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #c6ff00;
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  z-index: 1000;
+}
+
+.dropdown-menu.hidden {
+  display: none;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item.logout {
+  color: red;
+  text-decoration: underline;
+}
+
+/* ===== MAIN CONTAINER ===== */
 .container {
   max-width: 1200px;
   margin: auto;
   padding: 30px 20px;
 }
 
-/* ===== Welcome Section ===== */
+/* ===== WELCOME SECTION ===== */
 .welcome-section {
   display: flex;
   justify-content: space-between;
@@ -91,7 +138,7 @@ body {
   font-weight: bold;
 }
 
-/* ===== Stats ===== */
+/* ===== STATS CARDS ===== */
 .stats-row {
   display: flex;
   flex-wrap: wrap;
@@ -105,10 +152,27 @@ body {
   padding: 20px;
   border-radius: 12px;
   color: white;
-  box-shadow: 0 0 10px #04f0c167;
   min-width: 200px;
 }
 
+/* 👇 UNIQUE SHADOW CLASSES 👇 */
+.stat-card.points {
+  box-shadow: 0 0 12px #00ffc8;
+}
+
+.stat-card.goals {
+  box-shadow: 0 0 12px #d774af;
+}
+
+.stat-card.match {
+  box-shadow: 0 0 12px #c6ff00;
+}
+
+.stat-card.video {
+  box-shadow: 0 0 12px #3f51b5;
+}
+
+/* Stats Content */
 .stat-card h3 {
   font-size: 18px;
   color: #C6FF00;
@@ -119,7 +183,7 @@ body {
   font-size: 16px;
 }
 
-/* ===== Teammates ===== */
+/* ===== TEAMMATES ===== */
 .teammates {
   display: flex;
   flex-wrap: wrap;
@@ -179,95 +243,12 @@ body {
   display: block;
 }
 
-/* ===== Dropdowns ===== */
-.nav-icons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.notification-icon {
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.notification-dropdown,
-.profile-dropdown {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background-color: #333;
-  border-radius: 6px;
-  padding: 10px 15px;
-  box-shadow: 0 0 10px #000;
-  z-index: 1000;
-  width: 200px;
-}
-
-.notification-dropdown.hidden,
-.profile-dropdown.hidden {
-  display: none;
-}
-
-.notification-dropdown strong {
-  display: block;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 5px;
-}
-
-.notification-dropdown p {
-  color: #ccc;
-}
-
-.profile-icon {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.profile-menu {
-  position: relative;
-}
-
-.personal-label {
-  display: block;
-  font-weight: bold;
-  color: white;
-  text-decoration: underline;
-  margin-bottom: 10px;
-}
-
-.profile-options {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.profile-options li {
-  margin-bottom: 10px;
-}
-
-.profile-options a {
-  color: white;
-  text-decoration: none;
-}
-
-.profile-options a.logout {
-  color: red;
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-/* ===== Modal Popup ===== */
+/* ===== MODALS ===== */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,25 +305,132 @@ body {
   font-weight: bold;
 }
 
-.close-btn {
-  float: right;
-  cursor: pointer;
-  color: red;
-  font-size: 18px;
+/* ===== EDIT PROFILE POPUP ===== */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-/* ===== Responsive ===== */
+.popup-overlay.hidden {
+  display: none;
+}
+
+.popup-box {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 50px;
+  box-shadow: 0 0 20px #c6ff00;
+  max-width: 400px;
+  width: 30%;
+  position: relative;
+  color: white;
+}
+
+
+.popup-title {
+  text-align: center;
+  color: #c6ff00;
+  margin-bottom: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.profile-image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.profile-image-section img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #333;
+  margin-bottom: 10px;
+}
+
+#edit-profile-form input,
+#edit-profile-form select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.form-buttons button {
+  background: #c6ff00;
+  color: #222;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#edit-message {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#edit-message.error {
+  color: red;
+}
+
+#edit-message.success {
+  color: #00e676;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: #161b22;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+footer h3 {
+  color: #C6FF00;
+  margin-bottom: 10px;
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+.social-icons img {
+  width: 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .welcome-section {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-  }
-
-  #navbar nav ul {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
   }
 
   .stats-row {
@@ -352,318 +440,240 @@ body {
   .stat-card {
     width: 100%;
   }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .popup-box {
+    width: 95%;
+  }
 }
+.profile-dropdown {
+  position: relative;
+}
+
 .profile-icon {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
   cursor: pointer;
+  border: 2px solid #c6ff00;
 }
 
-.profile-dropdown {
-  background: #333;
-  padding: 10px;
-  border-radius: 5px;
+.dropdown-menu {
   position: absolute;
   right: 0;
   top: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  z-index: 1000;
+}
+
+.dropdown-menu.hidden {
   display: none;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item.logout {
+  color: red;
+  text-decoration: underline;
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 999;
 }
 
-.profile-options li {
-  margin: 10px 0;
-  list-style: none;
+.popup-overlay.hidden {
+  display: none;
 }
 
-.profile-options a {
+.popup-box {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 50px;
+  box-shadow: 0 0 20px #c6ff00;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
   color: white;
-  text-decoration: none;
 }
 
-.profile-options a.logout {
-  color: red;
-  text-decoration: underline;
-  font-weight: bold;
+.popup-title {
+  text-align: center;
+  color: #c6ff00;
+  margin-bottom: 15px;
 }
-.profile-icon {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 20px;
   cursor: pointer;
 }
 
-.profile-dropdown {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background: #333;
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  z-index: 999;
-  width: 180px;
+.profile-image-section {
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-.profile-dropdown.hidden {
-  display: none;
-}
-
-.profile-options {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.profile-options li {
+.profile-image-section img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 10px;
 }
 
-.profile-options a {
+#profile-image-upload {
   color: white;
-  text-decoration: none;
   display: block;
+  margin: 0 auto 15px auto;
 }
 
-.profile-options a.logout {
-  color: red;
-  text-decoration: underline;
-  font-weight: bold;
+#edit-profile-form input,
+#edit-profile-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #333;
+  color: white;
 }
-/* Navbar layout fix */
-#navbar {
+
+#edit-profile-form .form-buttons {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-}
-
-.profile-menu {
-  position: relative;
-  margin-left: 20px;
-}
-
-.profile-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+#edit-profile-form button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
 }
 
-/* Dropdown styles */
-.profile-dropdown {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: #333;
-  border-radius: 6px;
-  padding: 10px 15px;
-  box-shadow: 0 0 10px #000;
-  z-index: 1000;
-  width: 180px;
-  display: none;
-}
-
-.profile-dropdown.show {
-  display: block;
-}
-
-.personal-label {
+#cancel-edit-btn {
+  background: gray;
   color: white;
+}
+
+#save-edit-btn {
+  background: #c6ff00;
+  color: black;
   font-weight: bold;
-  text-decoration: underline;
-  margin-bottom: 10px;
-  display: block;
 }
 
-.profile-options {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+#edit-message {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
-.profile-options li {
-  margin: 8px 0;
+#edit-message.success {
+  color: #00e676;
 }
 
-.profile-options a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.profile-options a.logout {
+#edit-message.error {
   color: red;
-  text-decoration: underline;
-  font-weight: bold;
 }
-<header id="navbar">
-  <img src="images/logo.png" alt="Infinity Kora Logo" class="logo" />
-  <nav>
-    <ul class="nav-links">
-      <li><a href="#" class="nav-link active">Home</a></li>
-      <li><a href="championship.html" class="nav-link">Champions</a></li>
-      <li><a href="#" class="nav-link" id="teamLink">Team</a></li>
-      <li><a href="videos.html" class="nav-link">Videos</a></li>
-    </ul>
-  </nav>
-
-  <!-- Profile Icon and Dropdown -->
-  <div class="profile-menu">
-    <img src="images/user-placeholder.png" alt="Profile" class="profile-icon" onclick="toggleProfileDropdown()" />
-    <div id="profileDropdown" class="profile-dropdown hidden">
-      <span class="personal-label">Personal</span>
-      <ul class="profile-options">
-        <li><a href="edit-profile.html">Edit My Profile</a></li>
-        <li><a href="#" class="logout">Log Out</a></li>
-      </ul>
-    </div>
-  </div>
-</header>
-/* === Team Popup Upload Area === */
-#teamPopup .team-upload {
+.teammates {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 15px;
   align-items: center;
-  margin-bottom: 20px;
 }
 
-#teamPopup .logo-preview {
-  width: 100px;
-  height: 100px;
+.teammate {
+  text-align: center;
+}
+
+.teammate img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #C6FF00;
+  box-shadow: 0 0 8px #C6FF00;
+}
+
+.teammate span {
+  margin-top: 5px;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.teammate.main-user img {
+  border-color: #2196f3;
+  box-shadow: 0 0 8px #2196f3;
+}
+
+.add-member {
+  cursor: pointer;
+}
+
+.add-circle {
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   border: 2px dashed #C6FF00;
+  color: #C6FF00;
+  font-size: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #111;
-  overflow: hidden;
-  cursor: pointer;
-  margin-bottom: 10px;
+  margin: auto;
+  background: transparent;
 }
 
-#teamPopup .logo-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-#teamPopup input[type="file"] {
-  display: none;
-}
-
-#teamPopup .team-name-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #C6FF00;
-  border-radius: 6px;
-  background-color: #0a0a0a;
-  color: white;
-  font-size: 16px;
-}
-
-@media (max-width: 768px) {
-  #teamPopup .team-name-input {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  #teamPopup .logo-preview {
-    width: 80px;
-    height: 80px;
-  }
-}
-/* ===== Team Popup Responsive Styling ===== */
-#teamPopup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #111;
-  padding: 20px;
-  border-radius: 10px;
-  width: 95%;
-  max-width: 450px;
-  z-index: 10000;
-  box-shadow: 0 0 20px #c6ff00;
-  color: white;
-}
-
-#teamPopup h2 {
-  text-align: center;
-  color: #c6ff00;
-  margin-bottom: 20px;
-}
-
-#teamPopup .team-logo-preview {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 10px auto;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px dashed #c6ff00;
-}
-
-#teamPopup input[type="file"] {
-  display: block;
-  margin: 10px auto;
-  color: white;
-}
-
-#teamPopup input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #c6ff00;
-  border-radius: 6px;
-  background-color: #222;
-  color: white;
-  font-size: 14px;
-}
-
-#teamPopup button {
-  width: 100%;
-  background-color: #c6ff00;
-  color: black;
-  padding: 10px;
+.add-label {
+  color: #C6FF00;
   font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  display: block;
+  margin-top: 5px;
 }
-
-@media (max-width: 500px) {
-  #teamPopup {
-    padding: 15px;
-  }
-
-  #teamPopup .team-logo-preview {
-    width: 80px;
-    height: 80px;
-  }
-
-  #teamPopup input[type="text"] {
-    font-size: 13px;
-  }
-
-  #teamPopup button {
-    font-size: 14px;
-  }
-}
-/* === TEAM POPUP STYLING === */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(6px);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 9999;
 }
 
@@ -671,198 +681,43 @@ body {
   display: none;
 }
 
-.team-popup {
-  background: black;
-  border: 2px solid #c6ff00;
-  border-radius: 15px;
-  padding: 20px;
-  width: 90%;
+.modal-content {
+  background: #1c1c1c;
+  border-radius: 20px;
+  padding: 30px 20px;
   max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 20px #c6ff00;
   text-align: center;
-  box-shadow: 0 0 25px #c6ff00;
-  position: relative;
   color: white;
 }
 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  color: red;
-  cursor: pointer;
+.modal-logo {
+  max-width: 80px;
+  margin-bottom: 10px;
 }
 
-.logo-upload-wrapper {
-  margin-bottom: 15px;
+.modal-content h2 {
+  color: #c6ff00;
+  margin-bottom: 10px;
 }
 
-.team-logo-circle {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 3px solid #C6FF00;
-  overflow: hidden;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px #C6FF00;
-}
-
-.team-logo-circle img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-#teamNameInput {
-  margin-top: 15px;
+.modal-content input {
   width: 100%;
   padding: 10px;
-  background: #111;
-  border: 1px solid #c6ff00;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  background: #333;
   color: white;
-  border-radius: 6px;
 }
 
-#teamMembersList {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: 10px;
-  text-align: left;
-}
-
-#teamMembersList .member {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-#teamMembersList .member img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid #C6FF00;
-}
-
-.team-popup button {
-  background-color: #C6FF00;
-  color: black;
+.modal-content button {
   padding: 10px 20px;
-  border: none;
-  margin-top: 15px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.modal-message {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #C6FF00;
-}
-.team-popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(5px);
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.team-popup-overlay.hidden {
-  display: none;
-}
-
-.team-popup-content {
-  background: #000;
-  border: 2px solid #C6FF00;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-  box-shadow: 0 0 25px #C6FF00;
-  text-align: center;
-}
-
-.team-popup-content .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: red;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.team-logo-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-#teamLogoPreview {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 3px solid #C6FF00;
-  margin-bottom: 10px;
-  object-fit: cover;
-}
-
-#teamLogoInput {
-  color: white;
-  margin-bottom: 15px;
-}
-
-#teamNameInput {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #C6FF00;
-  background: #111;
-  color: white;
-}
-
-.team-members-list {
-  text-align: left;
-  margin-bottom: 20px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.team-members-list .member {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  color: white;
-}
-
-.team-members-list img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-  border: 2px solid #C6FF00;
-  object-fit: cover;
-}
-
-.team-popup-content button {
-  background: #C6FF00;
+  border-radius: 8px;
+  background: #c6ff00;
   color: black;
   font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 5px;
   border: none;
   cursor: pointer;
 }
@@ -870,116 +725,921 @@ body {
 .modal-message {
   margin-top: 10px;
   font-weight: bold;
-  color: #C6FF00;
 }
-/* ==== Team Popup ==== */
-.team-popup {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(10, 10, 10, 0.85);
-  backdrop-filter: blur(6px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.team-popup.hidden {
-  display: none;
-}
-
-.team-popup-content {
-  background: black;
-  border: 2px solid #C6FF00;
+.modal-content.wide {
+  background: #0d1117;
+  border-radius: 24px;
   padding: 30px;
-  border-radius: 12px;
   width: 90%;
-  max-width: 450px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 0 30px #C6FF00;
+  max-width: 900px;
+  color: white;
 }
 
-.team-popup-content .close-btn {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  color: red;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.team-logo-section {
+.team-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
-#teamLogoPreview {
-  width: 100px;
-  height: 100px;
+.team-header img {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  border: 3px solid #C6FF00;
-  margin-bottom: 10px;
   object-fit: cover;
 }
 
-#teamLogoInput {
+#teamNameInput {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #333;
   color: white;
-  margin-bottom: 15px;
 }
 
-#teamNameInput {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #C6FF00;
-  border-radius: 5px;
-  background: #111;
+#uploadTeamLogo {
+  padding: 5px;
   color: white;
+}
+
+.team-header button {
+  padding: 10px 20px;
+  background: #c6ff00;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
 }
 
 .team-members {
-  margin-bottom: 20px;
-  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
 }
 
 .team-members .member {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 8px 0;
+  background: #151515;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.team-members .member img {
-  width: 40px;
-  height: 40px;
+.team-members img {
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #C6FF00;
 }
 
-.team-members .member span {
+.team-members span {
+  flex: 1;
   color: white;
-  font-size: 14px;
-  font-weight: bold;
 }
 
-.team-popup-content button {
-  background: #C6FF00;
-  color: black;
-  padding: 10px 25px;
+.team-members .remove-icon {
+  color: red;
+  cursor: pointer;
+  font-size: 18px;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+.team-header input[type="file"] {
+  width: auto;
+  padding: 5px;
+  margin-right: 10px;
+}
+#teamNameInput {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  background: #333;
+  color: white;
   border: none;
-  border-radius: 5px;
+  font-size: 16px;
+}
+.logo img {
+  height: 50px;
+  max-height: 50px;
+}
+/* === Custom Popup Redesign === */
+.modal-content.wide {
+  background: #0d1117;
+  border-radius: 20px;
+  padding: 30px;
+  width: 95%;
+  max-width: 900px;
+  box-shadow: 0 0 30px rgba(198, 255, 0, 0.15);
+  position: relative;
+  color: white;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.team-header h2 {
+  font-size: 20px;
+  color: #c6ff00;
+  margin: 0;
+}
+
+#teamRankDisplay {
+  font-size: 14px;
+  color: #999;
+  margin-top: 4px;
+}
+.edit-menu .dropdown {
+  background: #0f0f0f;
+  border: 1px solid #c6ff00;
+  border-radius: 8px;
+  padding: 5px 10px;
+  z-index: 9999;
+}
+
+.edit-menu .dropdown p {
+  color: #c6ff00;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.edit-menu .dropdown p:hover,
+.edit-menu .dropdown p.selected {
+  text-decoration: underline;
+}
+
+
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+
+.member {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 12px 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(198, 255, 0, 0.08);
+  gap: 12px;
+  position: relative;
+}
+
+.member img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member span {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  flex: 1;
+}
+
+.member .remove-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.member .remove-icon:hover {
+  transform: scale(1.1);
+}
+
+.save-btn {
+  padding: 10px 24px;
+  background: #c6ff00;
+  border: none;
+  border-radius: 8px;
+  color: black;
   font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 0 12px #c6ff00a4;
+  cursor: pointer;
+}
+.modal-content.wide {
+  background: #0d1117;
+  border-radius: 20px;
+  padding: 30px;
+  width: 95%;
+  max-width: 900px;
+  border: 2px solid #c6ff00;
+  box-shadow: 0 0 30px #c6ff00;
+  position: relative;
+  color: white;
+}
+.modal-content.wide {
+  background: #0d1117;
+  border-radius: 20px;
+  padding: 30px;
+  width: 95%;
+  max-width: 900px;
+  border: 2px solid #c6ff00;
+  box-shadow: 0 0 30px #c6ff00;
+  position: relative;
+  color: white;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.team-header h2 {
+  font-size: 20px;
+  color: #c6ff00;
+  margin: 0;
+}
+
+#teamRankDisplay {
+  font-size: 14px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 12px 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(198, 255, 0, 0.08);
+  gap: 12px;
+  position: relative;
+}
+
+.member img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member span {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  flex: 1;
+}
+
+.member .remove-icon {
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 
-#teamSaveMessage {
-  margin-top: 10px;
+.edit-menu {
+  position: relative;
+}
+
+.edit-menu .dropdown {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: #0f0f0f;
+  border: 1px solid #c6ff00;
+  border-radius: 8px;
+  padding: 5px 10px;
+  z-index: 9999;
+}
+
+.edit-menu .dropdown p {
+  color: #c6ff00;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.edit-menu .dropdown p:hover,
+.edit-menu .dropdown p.selected {
+  text-decoration: underline;
+}
+
+.save-btn {
+  background: #c6ff00;
+  color: black;
   font-weight: bold;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  box-shadow: 0 0 16px #c6ff00;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  transform: scale(1.05);
+}
+
+.popup-message {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.popup-message.success {
+  color: #00ff88;
+}
+
+.popup-message.error {
+  color: #ff4c4c;
+}
+.modal-content.wide {
+  background: #0d1117;
+  border-radius: 20px;
+  padding: 30px;
+  width: 95%;
+  max-width: 900px;
+  border: 2px solid #c6ff00;
+  box-shadow: 0 0 30px #c6ff00;
+  position: relative;
+  color: white;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.team-header h2 {
+  font-size: 20px;
+  color: #c6ff00;
+  margin: 0;
+}
+
+#teamRankDisplay {
+  font-size: 14px;
+  color: #00e676;
+  margin-top: 4px;
+}
+
+.edit-menu {
+  position: relative;
+}
+
+.edit-menu .dropdown {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: #0f0f0f;
+  border: 1px solid #c6ff00;
+  border-radius: 8px;
+  padding: 5px 10px;
+  z-index: 9999;
+}
+
+.edit-menu .dropdown p {
+  color: #c6ff00;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.edit-menu .dropdown p:hover,
+.edit-menu .dropdown p.selected {
+  text-decoration: underline;
+}
+
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 12px 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(198, 255, 0, 0.08);
+  gap: 12px;
+  position: relative;
+}
+
+.member img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member span {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  flex: 1;
+}
+
+.member .remove-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.member .remove-icon:hover {
+  transform: scale(1.1);
+}
+
+.save-btn {
+  padding: 10px 24px;
+  background: #c6ff00;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 0 12px #c6ff00a4;
+  cursor: pointer;
+}
+
+.popup-section {
+  margin-top: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+/* ===== TEAM MODAL CUSTOM STYLING ===== */
+.modal-content.wide {
+  background: #0d1117;
+  border-radius: 20px;
+  padding: 30px;
+  width: 95%;
+  max-width: 900px;
+  border: 2px solid #c6ff00;
+  box-shadow: 0 0 30px #c6ff00;
+  position: relative;
+  color: white;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.team-header h2 {
+  font-size: 20px;
+  color: #c6ff00;
+  margin: 0;
+}
+
+#teamRankDisplay {
+  font-size: 14px;
+  color: #00e676;
+  margin-top: 4px;
+}
+
+.edit-menu {
+  position: relative;
+}
+
+.edit-menu img {
+  width: 20px;
+  cursor: pointer;
+}
+
+.edit-menu .dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #111;
+  border: 1px solid #c6ff00;
+  border-radius: 8px;
+  padding: 5px 10px;
+  z-index: 10;
+}
+
+.edit-menu .dropdown p {
+  color: white;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-menu .dropdown p:hover,
+.edit-menu .dropdown p.selected {
+  color: #c6ff00;
+  text-decoration: underline;
+}
+
+#teamLogo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #c6ff00;
+  box-shadow: 0 0 12px #c6ff00;
+}
+
+#uploadTeamLogo,
+#teamNameInput {
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  background: #222;
+  color: white;
+}
+
+.popup-section {
+  margin-top: 10px;
+}
+
+.save-btn {
+  background: #c6ff00;
+  color: black;
+  padding: 10px 24px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 16px #c6ff00;
+  cursor: pointer;
+}
+
+.popup-message {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.popup-message.success {
+  color: #00e676;
+}
+
+.popup-message.error {
+  color: #ff4c4c;
+}
+
+/* Close button inside modal */
+.modal-content.wide .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  z-index: 100;
+}
+/* Final dropdown fix */
+.edit-menu {
+  position: relative;
+}
+
+#editMenuTrigger {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+#editDropdown {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #0f0f0f;
+  border: 1px solid #c6ff00;
+  border-radius: 8px;
+  padding: 5px 10px;
+  z-index: 10;
+}
+
+#editDropdown.show {
+  display: block;
+}
+.hidden {
+  display: none !important;
+}
+
+/* ===== CHAMPIONSHIP PAGE CUSTOM ===== */
+.section-title {
+  font-size: 22px;
+  margin: 30px 0 15px;
   color: #C6FF00;
+  font-weight: 600;
+}
+
+/* Match Cards */
+.championship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.match-card {
+  background: #151515;
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(198, 255, 0, 0.15);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.match-card:hover {
+  transform: scale(1.02);
+}
+
+.match-card h3 {
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Popup Form Fields */
+.modal-content.wide .form-field {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.modal-content.wide .form-field label {
+  display: block;
+  margin-bottom: 6px;
+  color: #C6FF00;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.modal-content.wide .form-field input[type=\"number\"],
+.modal-content.wide .form-field input[type=\"text\"],
+.modal-content.wide .form-field input[type=\"file\"] {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  border: 1px solid #C6FF00;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+.modal-content.wide input[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.modal-content.wide input[type=\"file\"] {
+  padding: 12px;
+  cursor: pointer;
+}
+
+/* Upload Icons */
+.modal-content.wide input[type=\"file\"]::file-selector-button {
+  display: none;
+}
+
+/* Upload Icon Wrapper */
+.modal-content.wide input[type=\"file\"] {
+  background: url('../images/icons/icon-upload.png') no-repeat center left 10px;
+  background-size: 24px;
+  padding-left: 40px;
+}
+
+/* Apply Message Styling */
+.popup-message {
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+}
+
+.popup-message.success {
+  color: #00ff88;
+}
+
+.popup-message.error {
+  color: #ff4c4c;
+}
+/* ===== Apply Popup Scroll Styles ===== */
+.step-dots {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.step-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: gray;
+}
+
+.step-dots .dot.active {
+  background: #C6FF00;
+}
+
+.step-container {
+  display: flex;
+  width: 200%;
+  transition: transform 0.5s ease;
+}
+
+.step {
+  width: 100%;
+  padding: 10px;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.team-header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.team-header span {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Button glowing */
+.step button {
+  margin-top: 20px;
+  padding: 10px 24px;
+  background: linear-gradient(to right, #c6ff00, #00ff88);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(198, 255, 0, 0.5);
+  transition: 0.3s;
+}
+
+.step button:hover {
+  transform: scale(1.05);
+}
+/* ✅ Fix: Hide scrollable overflow */
+.modal-content.wide {
+  overflow: hidden;
+}
+
+/* ✅ Fix: Remove large space between logo and team name */
+.team-header {
+  display: flex;
+  align-items: leftS;
+  gap: 8px; /* reduced from 12px+ to fix spacing */
+  margin-bottom: 20px;
+}
+/* ✅ Make popup more compact */
+.modal-content.wide {
+  max-width: 500px;
+}
+
+/* ✅ Minimize space between team logo and name */
+.team-header {
+  gap: 1px;
+}
+
+.team-header img {
+  width: 50px;
+  height: 50px;
+}
+/* ✅ Fix 1: Tight logo + name with no space */
+.team-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.team-header img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: -4px; /* brings name closer */
+}
+
+.team-header span {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  padding-left: 0;
+}
+
+/* ✅ Ensure popup is fixed width */
+.modal-content.wide {
+  position: relative;
+  overflow: hidden;
+  max-width: 500px;
+  width: 100%;
+}
+
+/* ✅ Container scrolls 2 pages */
+.step-container {
+  display: flex;
+  width: 900px; /* 450px per slide */
+  transition: transform 0.5s ease-in-out;
+}
+
+/* ✅ Each slide is exactly 700px */
+.step {
+  width: 450px;
+  flex-shrink: 0;
+  padding: 30px;
+  box-sizing: border-box;
+}
+.match-card {
+  position: relative;
+  background: #151515;
+  border-radius: 16px;
+  overflow: hidden;
+  padding-bottom: 50px; /* make room for button */
+}
+
+/* Position Apply Now button in bottom-right */
+.match-card .apply-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 15px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 13px;
+  background: linear-gradient(to right, #c6ff00, #00ff88);
+  color: black;
+  border: none;
+  box-shadow: 0 0 10px #c6ff00;
+  cursor: pointer;
+}
+.payment-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.payment-icons img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(198, 255, 0, 0.15);
 }

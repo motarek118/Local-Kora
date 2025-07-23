@@ -174,3 +174,6 @@ window.signupUser = async function () {
     message.innerText = "❌ " + error.message;
   }
 };
+window.addEventListener("orientationchange", () => {
+  document.body.style.height = window.innerHeight + "px";
+});

@@ -1,233 +1,189 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Player Home | Infinity Kora</title>
+  <title>Player Dashboard | Infinity Kora</title>
   <link rel="stylesheet" href="css/player-style.css" />
   <script type="module" src="js/player.js" defer></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 </head>
 <body>
 
-<header id="navbar">
-  <img src="images/logo.png" alt="Infinity Kora Logo" class="logo" />
-  <nav>
-    <ul class="nav-links">
-      <li><a href="#" class="nav-link active">Home</a></li>
-      <li><a href="championship.html" class="nav-link">Champions</a></li>
-      <li><a href="#" class="nav-link" id="teamLink">Team</a></li>
-      <li><a href="videos.html" class="nav-link">Videos</a></li>
-    </ul>
-  </nav>
+<!-- ✅ Navbar -->
+<nav id="navbar">
+  <div class="logo">
+    <img src="images/logo.png" alt="Infinity Kora Logo" />
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="nav-link active">Home</a></li>
+    <li><a href="championship.html" class="nav-link">Champions</a></li>
+    <li><a href="videos.html" class="nav-link">Videos</a></li>
+  </ul>
 
-  <!-- Profile Icon and Dropdown -->
-  <div class="profile-menu">
-    <img src="images/user-placeholder.png" alt="Profile" class="profile-icon" onclick="toggleProfileDropdown()" />
-    <div id="profileDropdown" class="profile-dropdown hidden">
-      <span class="personal-label">Personal</span>
-      <ul class="profile-options">
-        <li><a href="edit-profile.html">Edit My Profile</a></li>
-        <li><a href="#" class="logout">Log Out</a></li>
-      </ul>
+  <!-- ✅ Profile icon + dropdown -->
+  <div class="profile-dropdown">
+    <img src="images/user-placeholder.png" alt="User" class="profile-icon" id="user-avatar" />
+    <div class="dropdown-menu hidden">
+      <a href="#" class="dropdown-item" id="edit-profile-btn">Edit My Profile</a>
+      <a href="index.html" class="dropdown-item logout">Log Out</a>
     </div>
   </div>
-</header>
+</nav>
 
-
-  <!-- Main Content -->
-  <main class="container">
-    <section class="welcome-section">
-      <div class="welcome-text">
-        <h1>Welcome back, <span id="playerName">Player!</span></h1>
-        <p>Ready to dominate the field today?</p>
-      </div>
-      <div class="rank-box">
-        <p>Current Rank</p>
-        <span id="playerRank">#--</span>
-      </div>
-    </section>
-
-    <section class="stats-row">
-      <div class="stat-card">
-        <h3>Points</h3>
-        <p id="playerPoints">0</p>
-      </div>
-      <div class="stat-card">
-        <h3>Goals Scored</h3>
-        <p>--</p>
-      </div>
-    </section>
-
-    <section class="stats-row">
-      <div class="stat-card match">
-        <h3>Next Match</h3>
-        <p id="matchTeams">Loading...</p>
-        <p id="matchDateTime"></p>
-        <p id="matchLocation"></p>
-        <p id="matchCountdown" class="countdown-text"></p>
-      </div>
-
-      <div class="stat-card">
-        <h3>Team Video</h3>
-        <p>Coming Soon...</p>
-      </div>
-    </section>
-
-    <section>
-      <h3 class="section-title">Your Teammates</h3>
-      <div class="teammates" id="teammatesList">
-        <div class="teammate main-user">
-          <img src="images/user-placeholder.png" alt="You" />
-          <span id="currentUserName">You</span>
-        </div>
-        <div class="teammate add-member" onclick="openAddTeammatePopup()">
-          <div class="add-circle">+</div>
-          <span class="add-label">Add Member</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Add Teammate Modal -->
-    <div id="addTeammateModal" class="modal hidden">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeTeammateModal()">✖</span>
-        <img src="images/logo.png" class="modal-logo" alt="Logo" />
-        <h2>Add Member</h2>
-        <input type="text" id="teammateInput" placeholder="Enter teammate's email or phone" />
-        <button onclick="addTeammate()">Add</button>
-        <div id="teammateMessage" class="modal-message"></div>
-      </div>
+<!-- ✅ Dashboard Content -->
+<main class="container">
+  <section class="welcome-section">
+    <div class="welcome-text">
+      <h1>Welcome back, <span id="playerName">Player</span></h1>
+      <p>Ready to dominate the field today?</p>
     </div>
-  </main>
+    <div class="rank-box">
+      <p>Current Rank</p>
+      <span id="playerRank">#--</span>
+    </div>
+  </section>
 
-  <!-- Scripts -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const profileIcon = document.getElementById("profileIcon");
-      const dropdown = document.getElementById("profileDropdown");
+  <section class="stats-row">
+    <div class="stat-card points">
+      <h3>Points</h3>
+      <p id="playerPoints">0</p>
+    </div>
+    <div class="stat-card goals">
+      <h3>Goals Scored</h3>
+      <p id="goalsScored">0</p>
+    </div>
+  </section>
 
-      profileIcon.addEventListener("click", () => {
-        dropdown.classList.toggle("hidden");
-      });
+  <section class="stats-row">
+    <div class="stat-card match">
+      <h3>Next Match</h3>
+      <div class="match-info" id="matchInfo">Loading...</div>
+    </div>
+    <div class="stat-card video">
+      <h3>Team Video</h3>
+      <p>Coming soon...</p>
+    </div>
+  </section>
 
-      const logoutLink = document.getElementById("logoutLink");
-      logoutLink.addEventListener("click", function (e) {
-        e.preventDefault();
-        const msgBox = document.createElement("div");
-        msgBox.style.position = "fixed";
-        msgBox.style.top = "50%";
-        msgBox.style.left = "50%";
-        msgBox.style.transform = "translate(-50%, -50%)";
-        msgBox.style.background = "rgba(50, 50, 50, 0.9)";
-        msgBox.style.padding = "20px 30px";
-        msgBox.style.color = "#C6FF00";
-        msgBox.style.fontSize = "18px";
-        msgBox.style.fontWeight = "bold";
-        msgBox.style.borderRadius = "8px";
-        msgBox.style.zIndex = 9999;
-        msgBox.innerText = "✅ Logged out successfully!";
-        document.body.appendChild(msgBox);
+  <section>
+    <h3 class="section-title">Your Teammates</h3>
+    <div class="teammates" id="teammatesList">
+      <!-- JS will fill player + teammates + Add Member -->
+    </div>
+    <div style="text-align: right; margin-top: 10px;">
+      <a href="#" id="viewAllTeam" style="color: #2196f3; text-decoration: underline; font-weight: bold;">View All</a>
+    </div>
+  </section>
+</main>
 
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 2000);
-      });
+<!-- ✅ Edit Profile Popup -->
+<div id="edit-profile-popup" class="popup-overlay hidden">
+  <div class="popup-box">
+    <span class="close-btn" id="close-edit-popup">&times;</span>
+    <h2 class="popup-title">Edit My Profile</h2>
 
-      const teamLink = document.getElementById("teamLink");
-      teamLink.addEventListener("click", function (e) {
-        e.preventDefault();
-        window.openTeamPopup && window.openTeamPopup();
-      });
-    });
-  </script>
-<!-- TEAM POPUP MODAL -->
-<div id="teamPopup" class="modal hidden">
+    <div class="profile-image-section">
+      <img id="edit-profile-pic" src="images/user-placeholder.png" alt="Profile" />
+      <input type="file" id="profile-image-upload" accept="image/*">
+    </div>
+
+    <form id="edit-profile-form">
+      <input type="text" id="edit-fullname" placeholder="Full Name" required />
+      <input type="number" id="edit-age" placeholder="Age" min="10" max="100" required />
+      <select id="edit-city" required>
+        <option value="">Select City</option>
+      </select>
+      <input type="email" id="edit-email" placeholder="Email" required />
+      <input type="text" id="edit-phone" placeholder="Phone Number" required />
+      <input type="password" id="edit-current-password" placeholder="Current Password" required />
+      <input type="password" id="edit-new-password" placeholder="New Password"/>
+      <input type="password" id="edit-confirm-password" placeholder="Confirm New Password"/>
+
+      <div class="form-buttons">
+        <button type="button" id="cancel-edit-btn">Cancel</button>
+        <button type="submit" id="save-edit-btn">Save Changes</button>
+      </div>
+
+      <p id="edit-message"></p>
+    </form>
+  </div>
+</div>
+
+<!-- ✅ Add Member Modal -->
+<div id="addTeammateModal" class="modal hidden">
   <div class="modal-content">
-    <span class="close-btn" onclick="closeTeamPopup()">✖</span>
-    <img id="teamLogoPreview" src="images/team-placeholder.png" class="modal-logo" alt="Team Logo" />
-    
-    <!-- Team Logo Upload -->
-    <input type="file" id="teamLogoInput" accept="image/*" />
-    
-    <!-- Team Name -->
-    <input type="text" id="teamNameInput" placeholder="Enter Team Name" />
-
-    <!-- Team Members List -->
-    <div id="teamMembersDisplay" class="teammates" style="margin-top: 20px;">
-      <!-- Dynamically loaded team members -->
-    </div>
-
-    <!-- Save Changes Button -->
-    <button onclick="saveTeamData()">Save Changes</button>
+    <span class="close-btn" onclick="closeTeammateModal()">×</span>
+    <img src="images/logo.png" class="modal-logo" alt="Logo" />
+    <h2>Add Member</h2>
+    <input type="text" id="teammateInput" placeholder="Enter teammate's email or phone" />
+    <button onclick="addTeammate()">Add</button>
+    <div id="teammateMessage" class="modal-message"></div>
   </div>
 </div>
-<script type="module">
-  import { auth, db } from "./firebase/firebase-config.js";
-  import { getDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  window.openTeamPopup = async function () {
-    const user = auth.currentUser;
-    if (!user) return;
+<!-- ✅ NEW View All Team Modal (Fully Styled) -->
+<div id="viewTeamModal" class="modal hidden">
+  <div class="modal-content wide">
+ <span class="close-btn" onclick="viewModal.classList.add('hidden')">×</span>
 
-    const userDoc = await getDoc(doc(db, "users", user.uid));
-    const data = userDoc.data();
-
-    document.getElementById("teamNameInput").value = data.teamName || "";
-    if (data.teamLogo) {
-      document.getElementById("teamLogoPreview").src = data.teamLogo;
-    }
-
-    document.getElementById("teamPopup").classList.remove("hidden");
-  };
-
-  // Attach event listener to "Team" link
-  document.getElementById("teamLink").addEventListener("click", (e) => {
-    e.preventDefault();
-    openTeamPopup();
-  });
-
-  // Close modal function
-  window.closeTeamPopup = function () {
-    document.getElementById("teamPopup").classList.add("hidden");
-  };
-</script>
-<!-- Team Popup -->
-<div id="teamPopup" class="team-popup-overlay hidden">
-  <div class="team-popup-content">
-    <span class="close-btn" onclick="closeTeamPopup()">✖</span>
-    <div class="team-logo-wrapper">
-      <img id="teamLogoPreview" src="images/user-placeholder.png" alt="Team Logo" />
-      <input type="file" id="teamLogoInput" accept="image/*" />
+    <!-- Team Header Info -->
+<div class="team-header">
+  <div style="display: flex; align-items: center; gap: 15px;">
+    <img id="teamLogo" src="images/user-placeholder.png" />
+    <div>
+      <h2 id="teamNameDisplay">team</h2>
+      <div id="teamRankDisplay">Rank #--</div>
     </div>
-    <input type="text" id="teamNameInput" placeholder="Enter Team Name" />
-    <div class="team-members-list" id="teamMembersList">
-      <!-- JavaScript will render names + avatars -->
+  </div>
+
+  <div style="display: flex; align-items: flex-start; gap: 12px;">
+    <div class="edit-menu">
+      <img src="images/icons/icon-edit.png" id="editMenuTrigger" />
+      <div id="editDropdown" class="dropdown hidden">
+        <p onclick="enableLogoEdit(this)">Edit Team Logo</p>
+        <p onclick="enableNameEdit(this)">Edit Team Name</p>
+      </div>
     </div>
-    <button onclick="saveTeamData()">Save Changes</button>
-    <div id="teamMessage" class="modal-message"></div>
+    <span class="close-btn" onclick="viewModal.classList.add('hidden')">×</span>
   </div>
 </div>
-<!-- Team Popup -->
-<div id="teamPopup" class="team-popup hidden">
-  <div class="team-popup-content">
-    <span class="close-btn" onclick="closeTeamPopup()">✖</span>
 
-    <div class="team-logo-section">
-      <img id="teamLogoPreview" src="images/user-placeholder.png" alt="Team Logo" />
-      <input type="file" id="teamLogoInput" accept="image/*" />
+<!-- Hidden by default -->
+<div id="teamLogoEditor" class="popup-section hidden">
+  <input type="file" id="uploadTeamLogo" accept="image/*" />
+</div>
+
+<div id="teamNameEditor" class="popup-section hidden">
+  <input type="text" id="teamNameInput" placeholder="Team Name" />
+</div>
+
+
+    <!-- Team Members Display -->
+    <div class="team-members" id="fullTeamList">
+      <!-- JS renders here -->
     </div>
 
-    <input type="text" id="teamNameInput" placeholder="Enter Team Name" />
-
-    <div class="team-members" id="teamMembersContainer">
-      <!-- Members will load here -->
+    <!-- Save Button -->
+    <div style="text-align: center; margin-top: 20px;">
+      <button class="save-btn" onclick="saveTeamChanges()">Save Changes</button>
+      <div id="teamSaveMessage" class="popup-message"></div>
     </div>
-
-    <button onclick="saveTeamData()">Save Changes</button>
-    <div id="teamSaveMessage"></div>
   </div>
 </div>
+
+
+<!-- ✅ Footer -->
+<footer id="contact">
+  <h3>Contact Us</h3>
+  <p>📞 +201154456523 | 📧 example@email.com</p>
+  <div class="social-icons">
+    <img src="images/facebook.png" alt="Facebook" />
+    <img src="images/instagram.png" alt="Instagram" />
+    <img src="images/tiktok.png" alt="TikTok" />
+  </div>
+  <p>© 2025 Infinity Kora. All rights reserved.</p>
+</footer>
 
 </body>
 </html>

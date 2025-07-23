@@ -1,12 +1,18 @@
-// fan.js
+// fan.js — FINAL FULL VERSION WITH MATCH & MENU FIXED
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import {
-  getFirestore, doc, getDoc, setDoc, updateDoc,
-  collection, getDocs, query, orderBy, limit
+  getFirestore, doc, getDoc, updateDoc, setDoc,
+  collection, getDocs, query, limit
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import {
+  getAuth, onAuthStateChanged, EmailAuthProvider,
+  reauthenticateWithCredential, updatePassword
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import {
+  getStorage, ref, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
-// ✅ Firebase Config
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB2J7vJquGsw2U4bgxL_7XvVWijT78wEpw",
   authDomain: "infinity-koraa.firebaseapp.com",
@@ -15,78 +21,81 @@ const firebaseConfig = {
   messagingSenderId: "232347807276",
   appId: "1:232347807276:web:ecdc01b341a2ace0cceb89"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
-// ✅ UI Elements
+// Elements
 const usernameEl = document.getElementById("username");
 const watchedEl = document.getElementById("videos-watched");
 const votesEl = document.getElementById("correct-votes");
 const pointsEl = document.getElementById("total-points");
-const matchInfo = document.getElementById("match-info");
-const votePopup = document.getElementById("vote-popup");
-const voteOptions = document.getElementById("vote-options");
-const closeBtn = document.querySelector(".close-popup");
-const profileIcon = document.getElementById("user-avatar");
-const dropdownMenu = document.querySelector(".dropdown-menu");
-const navLinks = document.querySelectorAll(".nav-link");
+const editForm = document.getElementById("edit-profile-form");
+const editMsg = document.getElementById("edit-message");
+const editPic = document.getElementById("edit-profile-pic");
+const imageUpload = document.getElementById("profile-image-upload");
 
-// ✅ Toggle dropdown
-profileIcon.addEventListener("click", () => {
-  dropdownMenu.classList.toggle("hidden");
+const fullNameField = document.getElementById("edit-fullname");
+const ageField = document.getElementById("edit-age");
+const cityField = document.getElementById("edit-city");
+const emailField = document.getElementById("edit-email");
+const phoneField = document.getElementById("edit-phone");
+const currentPassField = document.getElementById("edit-current-password");
+const newPassField = document.getElementById("edit-new-password");
+const confirmPassField = document.getElementById("edit-confirm-password");
+
+// Cities
+["Cairo", "Alexandria", "Giza", "Port Said", "Mansoura", "Zagazig"].forEach(city => {
+  const opt = document.createElement("option");
+  opt.value = city;
+  opt.textContent = city;
+  cityField.appendChild(opt);
 });
 
-// ✅ Nav highlight
-navLinks.forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.forEach(l => l.classList.remove("active"));
-    link.classList.add("active");
-  });
-});
-
-// ✅ Auth and user stats
+// Auth Listener
 onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const userRef = doc(db, "users", user.uid);
-    const userSnap = await getDoc(userRef);
-    if (userSnap.exists()) {
-      const data = userSnap.data();
-      usernameEl.textContent = data.fullName || 0;
-      watchedEl.textContent = data.videowatched || 0;
-      votesEl.textContent = data.correctVotes || 0;
-      pointsEl.textContent = data.totalpoints || 0;
-    } else {
-      await setDoc(userRef, {
-        videosWatched: 0,
-        correctVotes: 0,
-        totalPoints: 0,
-        role: "fan"
-      });
-    }
+  if (!user) return location.href = "index.html";
 
-    loadNextMatch(user.uid);
+  const userRef = doc(db, "users", user.uid);
+  const userSnap = await getDoc(userRef);
+
+  if (userSnap.exists()) {
+    const data = userSnap.data();
+    usernameEl.textContent = data.fullName || "Fan";
+    watchedEl.textContent = data.videowatched || 0;
+    votesEl.textContent = data.correctvotes || 0;
+    pointsEl.textContent = data.totalpoints || 0;
+    editPic.src = data.profile || "images/user-placeholder.png";
   } else {
-    window.location.href = "index.html";
+    await setDoc(userRef, {
+      fullName: "Fan",
+      videowatched: 0,
+      correctvotes: 0,
+      totalpoints: 0,
+      role: "fan"
+    });
   }
+
+  loadNextMatch(user.uid);
+  loadEditPopup(user.uid);
 });
 
-// ✅ Load latest next match (first document in 'next match')
+// Load Next Match
 async function loadNextMatch(userId) {
-  const matchQuery = query(collection(db, "next match"), limit(1));
-  const querySnapshot = await getDocs(matchQuery);
+  const matchInfo = document.getElementById("match-info");
+  const q = query(collection(db, "next match"), limit(1));
+  const snap = await getDocs(q);
 
-  if (querySnapshot.empty) {
+  if (snap.empty) {
     matchInfo.innerHTML = "<p style='color:white;'>No match scheduled.</p>";
     return;
   }
 
-  const matchDoc = querySnapshot.docs[0];
-  const match = matchDoc.data();
-  const matchId = matchDoc.id;
-
+  const match = snap.docs[0].data();
+  const matchId = snap.docs[0].id;
   const matchTime = match["match date"].toDate();
-  const countdown = convertTime(matchTime - new Date());
 
   matchInfo.innerHTML = `
     <div class="teams">
@@ -104,23 +113,36 @@ async function loadNextMatch(userId) {
       <p>${match.Location}</p>
       <p>${matchTime.toLocaleString()}</p>
     </div>
-    <div class="countdown">${countdown}</div>
+    <div class="countdown">${convertTime(matchTime - new Date())}</div>
     <div class="remaining">remaining</div>
-    <button class="vote-btn">Vote Now</button>
+    <div id="vote-message" style="margin-top: 15px;"></div>
+    <div id="vote-button-container"></div>
   `;
 
-  // Handle vote click
-  document.querySelector(".vote-btn").addEventListener("click", () => {
-    openVotePopup(match, userId, matchId);
-  });
-
+  // Update countdown every second
   setInterval(() => {
-    const updated = convertTime(match["match date"].toDate() - new Date());
-    document.querySelector(".countdown").textContent = updated;
+    document.querySelector(".countdown").textContent = convertTime(match["match date"].toDate() - new Date());
   }, 1000);
+
+  const voteId = `${userId}_${matchId}`;
+  const voteRef = doc(db, "votes", voteId);
+  const voteSnap = await getDoc(voteRef);
+
+  const voteMsg = document.getElementById("vote-message");
+  const voteBtnContainer = document.getElementById("vote-button-container");
+
+  if (voteSnap.exists()) {
+    voteMsg.innerHTML = `<div style="color: #00e676; font-weight: bold;">✅ You voted for ${voteSnap.data().votedTeam}</div>`;
+  } else {
+    const voteBtn = document.createElement("button");
+    voteBtn.className = "vote-btn";
+    voteBtn.textContent = "Vote Now";
+    voteBtn.onclick = () => openVotePopup(match, userId, matchId);
+    voteBtnContainer.appendChild(voteBtn);
+  }
 }
 
-// ✅ Convert milliseconds to hh:mm:ss
+// Convert Time
 function convertTime(ms) {
   if (ms <= 0) return "00:00:00";
   const s = Math.floor(ms / 1000);
@@ -130,47 +152,119 @@ function convertTime(ms) {
   return `${h}:${m}:${sec}`;
 }
 
-// ✅ Show voting popup
+// Vote Popup
+const votePopup = document.getElementById("vote-popup");
+const voteOptions = document.getElementById("vote-options");
+const closeBtn = document.querySelector(".close-popup");
+
+closeBtn.addEventListener("click", () => votePopup.classList.add("hidden"));
+
 function openVotePopup(match, userId, matchId) {
-  votePopup.classList.remove("hidden");
-
   voteOptions.innerHTML = `
-    <div class="vote-team" data-team="${match["Team 1"]}">
-      <img src="${match.Team1Logo}" />
-      <p>${match["Team 1"]}</p>
-    </div>
-    <div class="vote-team" data-team="${match["Team 2"]}">
-      <img src="${match.Team2Logo}" />
-      <p>${match["Team 2"]}</p>
-    </div>
+    <button onclick="handleVote('${match["Team 1"]}', '${userId}', '${matchId}')">${match["Team 1"]}</button>
+    <button onclick="handleVote('${match["Team 2"]}', '${userId}', '${matchId}')">${match["Team 2"]}</button>
   `;
+  votePopup.classList.remove("hidden");
+}
 
-  document.querySelectorAll(".vote-team").forEach(el => {
-    el.addEventListener("click", async () => {
-      const team = el.dataset.team;
-      const voteId = `${userId}_${matchId}`;
+window.handleVote = async function (team, userId, matchId) {
+  const voteRef = doc(db, "votes", `${userId}_${matchId}`);
+  await setDoc(voteRef, { userId, matchId, votedTeam: team });
+  votePopup.classList.add("hidden");
+  document.getElementById("vote-button-container").innerHTML = "";
+  document.getElementById("vote-message").innerHTML = `<div style="color: #00e676; font-weight: bold;">✅ You voted for ${team}</div>`;
+};
 
-      await setDoc(doc(db, "votes", voteId), {
-        userId,
-        matchId,
-        votedTeam: team
-      });
+// Profile Dropdown Menu
+const profileIcon = document.getElementById("user-avatar");
+const dropdownMenu = document.querySelector(".dropdown-menu");
+profileIcon.addEventListener("click", () => dropdownMenu.classList.toggle("hidden"));
+document.addEventListener("click", (e) => {
+  if (!profileIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    dropdownMenu.classList.add("hidden");
+  }
+});
 
-      votePopup.innerHTML = `
-        <div class="popup-content">
-          <span class="close-popup">&times;</span>
-          <h3 style="color: #c6ff00;">You voted for ${team}</h3>
-        </div>
-      `;
+// Edit Popup
+function loadEditPopup(uid) {
+  document.getElementById("edit-profile-btn").addEventListener("click", async () => {
+    const userSnap = await getDoc(doc(db, "users", uid));
+    const data = userSnap.data();
+    fullNameField.value = data.fullName || "";
+    ageField.value = data.age || "";
+    cityField.value = data.city || "";
+    emailField.value = auth.currentUser.email || "";
+    phoneField.value = data.phone || "";
+    editPic.src = data.profile || "images/user-placeholder.png";
+    document.getElementById("edit-profile-popup").classList.remove("hidden");
+  });
 
-      document.querySelector(".close-popup").addEventListener("click", () => {
-        votePopup.classList.add("hidden");
-      });
-    });
+  document.getElementById("close-edit-popup").addEventListener("click", () => {
+    document.getElementById("edit-profile-popup").classList.add("hidden");
+  });
+
+  document.getElementById("cancel-edit-btn").addEventListener("click", () => {
+    document.getElementById("edit-profile-popup").classList.add("hidden");
   });
 }
 
-// ✅ Close popup
-closeBtn.addEventListener("click", () => {
-  votePopup.classList.add("hidden");
+// Submit Profile Form
+editForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const fullName = fullNameField.value.trim();
+  const age = parseInt(ageField.value);
+  const city = cityField.value;
+  const email = emailField.value.trim();
+  const phone = phoneField.value.trim();
+  const currentPass = currentPassField.value.trim();
+  const newPass = newPassField.value.trim();
+  const confirmPass = confirmPassField.value.trim();
+  const uid = auth.currentUser.uid;
+
+  if (!fullName || !age || !city || !email || !phone || !currentPass) {
+    return showEditMessage("❌ All fields are required", "error");
+  }
+
+  if (!email.includes("@") || phone.length !== 11 || !/^\d+$/.test(phone)) {
+    return showEditMessage("❌ Invalid email or phone", "error");
+  }
+
+  if (newPass && newPass !== confirmPass) {
+    return showEditMessage("❌ Passwords do not match", "error");
+  }
+
+  try {
+    const cred = EmailAuthProvider.credential(auth.currentUser.email, currentPass);
+    await reauthenticateWithCredential(auth.currentUser, cred);
+    if (newPass) await updatePassword(auth.currentUser, newPass);
+
+    let photoURL = editPic.src;
+
+    if (imageUpload.files.length > 0) {
+      const file = imageUpload.files[0];
+      const storageRef = ref(storage, `profiles/${uid}`);
+      await uploadBytes(storageRef, file);
+      photoURL = await getDownloadURL(storageRef);
+    }
+
+    await updateDoc(doc(db, "users", uid), {
+      fullName, age, city, phone, profile: photoURL
+    });
+
+    showEditMessage("✅ Profile updated. Logging out...", "success");
+
+    setTimeout(() => {
+      auth.signOut().then(() => location.href = "index.html");
+    }, 2000);
+
+  } catch (err) {
+    console.error("❌", err.message);
+    showEditMessage(err.code === "auth/wrong-password" ? "❌ Incorrect password" : "❌ Update failed", "error");
+  }
 });
+
+function showEditMessage(msg, type) {
+  editMsg.textContent = msg;
+  editMsg.className = type === "error" ? "error" : "success";
+}
