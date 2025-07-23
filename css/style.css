@@ -560,3 +560,47 @@ body {
     font-size: 14px;
   }
 }
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 9999; /* ✅ high enough */
+}
+@media (max-width: 768px) {
+  nav ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: start;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  nav ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .hero-content h1 {
+    font-size: 24px;
+  }
+
+  .hero-content h2 {
+    font-size: 18px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  #getStartedBtn {
+    font-size: 14px;
+    padding: 8px 18px;
+  }
+}

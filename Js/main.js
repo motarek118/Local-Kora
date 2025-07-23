@@ -15,10 +15,13 @@ window.addEventListener("scroll", () => {
   const navbar = document.getElementById("navbar");
   if (window.scrollY > 50) {
     navbar.classList.add("scrolled");
+    navbar.style.padding = "10px 20px";
   } else {
     navbar.classList.remove("scrolled");
+    navbar.style.padding = "15px 30px";
   }
 });
+
 
 // ====== SMOOTH SCROLL + ACTIVE NAV LINK ======
 const navLinks = document.querySelectorAll(".nav-link");
@@ -43,6 +46,10 @@ if (getStartedBtn) {
   getStartedBtn.addEventListener("click", () => {
     if (loginModal) loginModal.classList.remove("hidden");
   });
+}
+if (loginModal) {
+  loginModal.classList.remove("hidden");
+  loginModal.scrollIntoView({ behavior: "smooth" });
 }
 
 window.closeModal = function (modalId) {
