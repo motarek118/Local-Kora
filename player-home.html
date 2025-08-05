@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="css/player-style.css" />
   <script type="module" src="js/player.js" defer></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
 </head>
 <body>
 
@@ -66,15 +68,16 @@
     </div>
   </section>
 
-  <section>
+<section>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
     <h3 class="section-title">Your Teammates</h3>
-    <div class="teammates" id="teammatesList">
-      <!-- JS will fill player + teammates + Add Member -->
-    </div>
-    <div style="text-align: right; margin-top: 10px;">
-      <a href="#" id="viewAllTeam" style="color: #2196f3; text-decoration: underline; font-weight: bold;">View All</a>
-    </div>
-  </section>
+    <a href="#" id="viewAllTeam" style="color: #2196f3; text-decoration: underline; font-weight: bold;">View All</a>
+  </div>
+  <div class="teammates" id="teammatesList">
+    <!-- teammates will render here -->
+  </div>
+</section>
+
 </main>
 
 <!-- ✅ Edit Profile Popup -->
@@ -93,6 +96,12 @@
       <input type="number" id="edit-age" placeholder="Age" min="10" max="100" required />
       <select id="edit-city" required>
         <option value="">Select City</option>
+        <option value="Cairo">Cairo</option>
+        <option value="Alexandria">Alexandria</option>
+  <option value="Giza">Giza</option>
+  <option value="Port Said">Port Said</option>
+  <option value="Mansoura">Mansoura</option>
+  <option value="Zagazig">Zagazig</option>
       </select>
       <input type="email" id="edit-email" placeholder="Email" required />
       <input type="text" id="edit-phone" placeholder="Phone Number" required />
@@ -125,7 +134,6 @@
 <!-- ✅ NEW View All Team Modal (Fully Styled) -->
 <div id="viewTeamModal" class="modal hidden">
   <div class="modal-content wide">
- <span class="close-btn" onclick="viewModal.classList.add('hidden')">×</span>
 
     <!-- Team Header Info -->
 <div class="team-header">

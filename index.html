@@ -6,6 +6,7 @@
   <title>Infinity Kora</title>
   <link rel="stylesheet" href="css/style.css" />
   <script type="module" src="js/main.js"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -16,7 +17,7 @@
       <img src="images/logo.png" alt="Infinity Kora" class="logo" />
       <nav>
         <ul>
-          <li><a href="#home" class="nav-link active">🏠 Home</a></li>
+          <li><a href="#home" class="nav-link active">Home</a></li>
           <li><a href="#vision" class="nav-link">Our Vision</a></li>
           <li><a href="#events" class="nav-link">Upcoming Events</a></li>
           <li><a href="#contact" class="nav-link">Contact Us</a></li>
@@ -29,17 +30,19 @@
   <!-- Hero Section -->
   <section id="home" class="hero-section">
     <div class="hero-content">
-      <h1><span>Welcome To </span><span class="highlight">Infinity Kora</span></h1>
-      <h2>Join The Champions.<br />Prove Your Skills.</h2>
-      <p>Small Teams. Big Dreams.<br />Join us To Rise to the TOP</p>
-      <button id="getStartedBtn">Get Started</button>
+<h1 class="gradient-heading">Welcome To Infinity Kora</h1>
+<h2>Join The Champions.<br />Prove Your Skills</h2>
+<div style="text-align: center;">
+  <button id="getStartedBtn">Get Started</button>
+</div>
+
     </div>
   </section>
 
   <!-- Login Modal -->
   <div id="loginModal" class="modal hidden">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('loginModal')">✖</span>
+      <span class="close-btn" onclick="closeModal('loginModal')">×</span>
       <img src="images/logo.png" class="modal-logo" />
       <h2>Welcome Back</h2>
       <p>Ready to conquer the pitch?</p>
@@ -54,7 +57,7 @@
   <!-- Sign Up Modal -->
   <div id="signupModal" class="modal hidden">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('signupModal')">✖</span>
+      <span class="close-btn" onclick="closeModal('signupModal')">×</span>
       <img src="images/logo.png" class="modal-logo" />
       <h2>Sign Up</h2>
       <p>Let’s build your legend!</p>
@@ -106,10 +109,12 @@
   </section>
 
   <!-- Events Section -->
-  <section id="events" class="events-section">
-    <h2>Upcoming Events</h2>
-    <!-- Placeholder content until admin dashboard is built -->
-  </section>
+<!-- Events Section -->
+<section id="events" class="events-section">
+  <h2>Upcoming Events</h2>
+  <div id="upcomingEventsContainer" class="events-container"></div>
+</section>
+
 
   <!-- Footer / Contact -->
   <footer id="contact">

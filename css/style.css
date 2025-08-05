@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: #0a0a0a;
+  background-color: #10141C;
   color: white;
 }
 
@@ -55,7 +55,7 @@ nav ul li a {
 
 nav ul li a.active,
 nav ul li a:hover {
-  color: #C6FF00;
+  color: #00FF7F;
   text-decoration: underline;
 }
 
@@ -88,7 +88,7 @@ nav ul li a:hover {
 
 .hero-content h1 {
   font-size: 40px;
-  color: #C6FF00;
+  color: #b91377;
   margin-bottom: 10px;
 }
 
@@ -104,7 +104,7 @@ nav ul li a:hover {
 }
 
 .hero-content button {
-  background-color: #C6FF00;
+  background-color: #ff008c;
   color: black;
   padding: 10px 25px;
   border: none;
@@ -180,7 +180,7 @@ nav ul li a:hover {
 }
 
 .switch-modal span {
-  color: #C6FF00;
+  color: #00FF7F;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -220,7 +220,7 @@ nav ul li a:hover {
 }
 
 .vision-section .vision-card h3 {
-  color: #C6FF00;
+  color: #00FF7F;
   margin-bottom: 10px;
   font-size: 20px;
 }
@@ -238,7 +238,7 @@ nav ul li a:hover {
 }
 
 .events-section h2 {
-  color: #C6FF00;
+  color: #00FF7F;
   font-size: 30px;
   margin-bottom: 30px;
 }
@@ -305,7 +305,7 @@ footer p {
 }
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0e1629;
+  background-color: #10141C;
   color: white;
   margin: 0;
   padding: 0;
@@ -427,7 +427,7 @@ h2 {
 body {
   margin: 0;
   padding: 0;
-  background-color: #0d1117;
+  background-color: #10141C;
   color: #ffffff;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -647,5 +647,173 @@ body {
   #getStartedBtn {
     font-size: 14px;
     padding: 10px 18px;
+  }
+}
+button,
+.modal-content button,
+.hero-content button {
+  background: linear-gradient(to right, #00FF7F, #00BFFF);
+  color: white;
+  border: none;
+}
+button,
+button * {
+  color: black !important;
+}
+/* Gradient Heading Style */
+.gradient-heading {
+  font-size: 40px;
+  font-weight: bold;
+  background: linear-gradient(to right, #00FF7F, #00BFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+/* Gradient for "OUR VISION" and "Upcoming Events" */
+.vision-section h2,
+.events-section h2 {
+  background: linear-gradient(to right, #00FF7F, #00BFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradient for "Contact Us" */
+footer h3 {
+  background: linear-gradient(to right, #00FF7F, #00BFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+.event-card {
+  background: #2b2b2b;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.event-image {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.event-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+/* === Global Styling for Form Fields === */
+
+/* For all input, select, textarea fields */
+input,
+select,
+textarea {
+  background-color: white !important;  /* White background for input fields */
+  color: black !important;             /* Black text */
+  border: 1px solid #ccc !important;  /* Light grey border */
+  padding: 10px;                       /* Adequate padding for easy text input */
+  border-radius: 6px;                  /* Rounded corners */
+  font-size: 14px;                     /* Ensuring readability */
+}
+
+/* For Disabled Fields (Grayed out) */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #f0f0f0 !important; /* Light gray background for disabled fields */
+  color: #aaa !important;               /* Grayed out text */
+  border-color: #ddd !important;        /* Light grey border */
+}
+/* Force horizontal navbar on mobile */
+nav ul {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* space between items */
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-wrap: wrap; /* allow wrapping if too tight */
+  }
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;      /* 🔒 Don't allow wrapping */
+  overflow-x: auto;       /* 🔁 Optional: scroll if too small */
+  white-space: nowrap;    /* 👌 Prevent text from breaking */
+  gap: 16px;              /* Spacing between links */
+  padding: 10px;
+  list-style: none;
+}
+@media (max-width: 600px) {
+  nav ul {
+    font-size: 13px;
+    gap: 8px;
+    padding: 5px;
+  }
+}
+nav {
+  overflow-x: auto;
+}
+/* Increase "Our Vision" text size on mobile */
+@media (max-width: 768px) {
+  #vision h2 {
+    font-size: 2.4rem;  /* Adjust size as needed */
+  }
+}
+/* Ensure close button is white on both mobile and desktop */
+.close-btn {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .close-btn {
+    color: #ffffff !important;
+  }
+}
+/* Hero Section: Center content for mobile view */
+@media (max-width: 768px) {
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;  /* Ensure it takes the full screen height */
+    padding: 20px;
+  }
+
+  .hero-content h1,
+  .hero-content h2,
+  .hero-content button {
+    margin: 10px 0;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;  /* Adjust font size if needed */
+  }
+
+  .hero-content h2 {
+    font-size: 24px;  /* Adjust font size if needed */
+  }
+
+  .hero-content button {
+    font-size: 16px;
+    padding: 12px 30px;
   }
 }

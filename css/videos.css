@@ -1,7 +1,7 @@
 /* css/videos.css */
 
 body {
-  background: #0d1117;
+  background: #10141C;
   color: white;
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
@@ -15,7 +15,7 @@ body {
 
 .videos-header h1 {
   font-size: 2rem;
-  color: #c6ff00;
+  color: #00FF7F;
   text-decoration: underline;
 }
 
@@ -92,7 +92,7 @@ body {
   align-items: center;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: #c6ff00;
+  color:#00FF7F#;
   margin-top: 10px;
   gap: 12px;
 }
@@ -137,7 +137,7 @@ body {
 }
 
 .popup-content {
-  background: #1e1e1e;
+  background: #181F2B;
   padding: 20px;
   border-radius: 20px;
   max-width: 700px;
@@ -207,7 +207,7 @@ body {
 
 .comment-form button {
   padding: 10px 20px;
-  background: #c6ff00;
+  background: #00FF7F;
   border: none;
   color: black;
   font-weight: bold;
@@ -236,7 +236,7 @@ footer {
 }
 
 footer h3 {
-  color: #C6FF00;
+  color: #00FF7F;
   margin-bottom: 10px;
 }
 
@@ -276,4 +276,52 @@ footer p {
   .comment-form {
     flex-direction: column;
   }
+}
+/* Gradient for "Contact Us" footer title */
+footer h3 {
+  background: linear-gradient(to right, #00FF7F, #00BFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* === Global Styling for Form Fields === */
+
+/* For all input, select, textarea fields */
+input,
+select,
+textarea {
+  background-color: white !important;  /* White background for input fields */
+  color: black !important;             /* Black text */
+  border: 1px solid #ccc !important;  /* Light grey border */
+  padding: 10px;                       /* Adequate padding for easy text input */
+  border-radius: 6px;                  /* Rounded corners */
+  font-size: 14px;                     /* Ensuring readability */
+}
+
+/* For Disabled Fields (Grayed out) */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #f0f0f0 !important; /* Light gray background for disabled fields */
+  color: #aaa !important;               /* Grayed out text */
+  border-color: #ddd !important;        /* Light grey border */
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;      /* 🔒 Don't allow wrapping */
+  overflow-x: auto;       /* 🔁 Optional: scroll if too small */
+  white-space: nowrap;    /* 👌 Prevent text from breaking */
+  gap: 16px;              /* Spacing between links */
+  padding: 10px;
+  list-style: none;
+}
+@media (max-width: 600px) {
+  nav ul {
+    font-size: 13px;
+    gap: 8px;
+    padding: 5px;
+  }
+}
+nav {
+  overflow-x: auto;
 }
